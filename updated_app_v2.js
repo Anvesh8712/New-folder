@@ -184,7 +184,7 @@ app.post(
         ]
       );
 
-      res.status(200).json({ message: "Data saved successfully", newUser });
+      return res.redirect("/grader_login.html");
     } catch (error) {
       console.error("Error:", error);
       res.status(500).json({ error: "An error occurred" });

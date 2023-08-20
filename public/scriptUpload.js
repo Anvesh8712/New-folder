@@ -91,9 +91,11 @@ submitButton.addEventListener("click", async (event) => {
       body: formData, // No need to set the Content-Type header, fetch does it automatically for FormData
     });
 
+    if (response.redirected) {
+      window.location.href = response.url;
+    }
     if (response.ok) {
-      const data = await response.json();
-      console.log("Data saved:", data);
+      window.redirect;
     } else {
       console.error("Error:", response.statusText);
     }
