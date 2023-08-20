@@ -127,11 +127,11 @@ app.post(
       const script_type = req.body["script-type-1"];
       const genre = req.body["script-genre-1"];
       const script_file_path = req.files["script-file-1"][0].path.replace(
-        "public\\",
+        "public/",
         ""
       );
       const synopsis_file_path = req.files["synopsis-file-1"]
-        ? req.files["synopsis-file-1"][0].path.replace("public\\", "")
+        ? req.files["synopsis-file-1"][0].path.replace("public/", "")
         : null;
 
       if (req.body["multiple-scripts"] == "Double") {
@@ -140,11 +140,11 @@ app.post(
         const script_type_2 = req.body["script-type-2"];
         const genre_2 = req.body["script-genre-2"];
         const script_file_path_2 = req.files["script-file-2"][0].path.replace(
-          "public\\",
+          "public/",
           ""
         );
         const synopsis_file_path_2 = req.files["synopsis-file-2"]
-          ? req.files["synopsis-file-1"][0].path.replace("public\\", "")
+          ? req.files["synopsis-file-1"][0].path.replace("public/", "")
           : null;
 
         await db.none(

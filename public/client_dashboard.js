@@ -4,6 +4,7 @@ let populateDropdown = async () => {
     .then((data) => {
       document.getElementById("greetings").textContent = "Hi " + data.name;
       let genre = document.getElementById("genreSelect").value;
+      console.log("genre: ", genre);
       return fetch("getTopScripts?genre=" + genre);
     })
     .then((response) => {
