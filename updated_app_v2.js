@@ -54,6 +54,14 @@ function isAuthenticatedClient(req, res, next) {
   }
 }
 
+function isAuthenticatedWriter(req, res, next) {
+  if (req.session && req.session.isAuthenticatedWriter) {
+    next();
+  } else {
+    res.status(401).send("Unauthorized");
+  }
+}
+
 // Serve static files
 app.use(express.static("public"));
 
@@ -63,7 +71,7 @@ app.get("/", (req, res) => {
 
 // Submit - writer route
 app.post(
-  "/submit",
+  "/writerSignup",
   upload.fields([
     { name: "script-file-1", maxCount: 1 },
     { name: "synopsis-file-1", maxCount: 1 },
@@ -78,6 +86,7 @@ app.post(
         "first-name": first_name,
         "last-name": last_name,
         email,
+        password,
         phone,
         "street-address": street_address,
         "address-line2": address_line2,
@@ -93,7 +102,7 @@ app.post(
       const newUser = await db.one(
         `
         INSERT INTO users2 (
-            first_name, last_name, email, phone,
+            first_name, last_name, email, password, phone,
             street_address, address_line2, city,
             state, zip_code, country,
             social_media_url
@@ -102,7 +111,7 @@ app.post(
             $1, $2, $3, $4,
             $5, $6, $7,
             $8, $9, $10,
-            $11
+            $11, $12
         )
         RETURNING user_id
       `,
@@ -110,6 +119,7 @@ app.post(
           first_name,
           last_name,
           email,
+          password,
           phone,
           street_address,
           address_line2,
@@ -243,6 +253,28 @@ app.post("/graderSignup", async (req, res) => {
   }
 });
 
+app.post("/clientSignup", async (req, res) => {
+  try {
+    console.log("Extracted grader form data:", req.body);
+    const { name, email, phone, password, contact_person, address } = req.body;
+
+    // Insert grader data into the graders table
+    await db.none(
+      `INSERT INTO client (name, email, password, phone_number, contact_person, address)
+            VALUES (
+            $1, $2, $3, $4,
+            $5, $6
+        )`,
+      [name, email, password, phone, contact_person, address]
+    );
+
+    return res.redirect("/grader_login.html");
+  } catch (err) {
+    console.error("Error inserting grader data:", err);
+    res.status(500).send("Server Error");
+  }
+});
+
 //loggingg in grader
 // Grader Authentication Endpoint
 app.post("/graderLogin", async (req, res) => {
@@ -262,6 +294,37 @@ app.post("/graderLogin", async (req, res) => {
       // Redirect to the dashboard.
       console.log("authenticated!");
       return res.redirect("/grader_dashboard.html");
+
+      res.json({ status: "success", message: "Logged in successfully" });
+    } else {
+      res.status(401).json({ status: "error", message: "Invalid credentials" });
+    }
+  } catch (error) {
+    console.error("Error during grader login:", error);
+    return res
+      .status(500)
+      .json({ status: "error", message: "Server error during login" });
+  }
+});
+
+//writer login
+app.post("/writerLogin", async (req, res) => {
+  const { email, password } = req.body;
+
+  // Query the database to fetch the grader with the provided email
+  try {
+    const writer = await db.one("SELECT * FROM users2 WHERE email = $1", [
+      email,
+    ]);
+
+    // Simple password validation (in a real-world scenario, use hashed passwords with bcrypt or similar)
+    if (writer && writer.password === password) {
+      //start a session
+      req.session.isAuthenticatedWriter = true;
+      req.session.writerEmail = writer.email;
+      // Redirect to the dashboard.
+      console.log("authenticated!");
+      return res.redirect("/writer_dashboard.html");
 
       res.json({ status: "success", message: "Logged in successfully" });
     } else {
@@ -332,6 +395,35 @@ app.get("/getTopScripts", isAuthenticatedClient, async (req, res) => {
   }
 });
 
+//user scripts
+app.get("/getUserScripts", isAuthenticatedWriter, async (req, res) => {
+  try {
+    const genre = req.query.id;
+    // Fetch the grader's preferred genres from the database
+
+    // Fetch scripts that match the preferred genres
+    const scripts = await db.any(
+      "SELECT * FROM scripts WHERE user_id = $1 ORDER BY total_score DESC LIMIT 10",
+      [genre]
+    );
+
+    console.log(scripts);
+
+    for (const script of scripts) {
+      const author = await db.one(
+        "SELECT first_name, last_name FROM users2 WHERE user_id = ($1) LIMIT 1",
+        [script.user_id]
+      );
+      script.author = author.first_name + " " + author.last_name;
+    }
+
+    res.json(scripts);
+  } catch (error) {
+    console.error("Error fetching recommended scripts:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 //dashboard population
 app.get("/getGraderDetails", isAuthenticatedGrader, async (req, res) => {
   try {
@@ -356,6 +448,21 @@ app.get("/getClientDetails", isAuthenticatedClient, async (req, res) => {
       email,
     ]);
     res.json(client);
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Server error fetching grader details",
+    });
+  }
+});
+
+app.get("/getWriterDetails", isAuthenticatedWriter, async (req, res) => {
+  try {
+    const email = req.session.writerEmail;
+    const writer = await db.one("SELECT * FROM users2 WHERE email = $1", [
+      email,
+    ]);
+    res.json(writer);
   } catch (error) {
     res.status(500).json({
       status: "error",
