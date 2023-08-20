@@ -58,7 +58,7 @@ function isAuthenticatedClient(req, res, next) {
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/scriptUpload.html");
+  res.sendFile(__dirname + "/public/homepage.html");
 });
 
 // Submit - writer route
