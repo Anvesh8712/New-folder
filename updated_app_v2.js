@@ -187,7 +187,7 @@ app.post(
       return res.redirect("/grader_login.html");
     } catch (error) {
       console.error("Error:", error);
-      res.status(500).json({ error: "An error occurred" });
+      res.status(500).json({ error: error.detail });
     }
   }
 );

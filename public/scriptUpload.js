@@ -97,7 +97,7 @@ submitButton.addEventListener("click", async (event) => {
     if (response.ok) {
       window.redirect;
     } else {
-      console.error("Error:", response.statusText);
+      response.text().then((text) => alert("Error: " + text));
     }
   } catch (error) {
     console.error("Error:", error);
