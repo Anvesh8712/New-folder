@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grader Signup</title>
+    <link rel="stylesheet" href="grader_signup.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Grader Signup</h1>
+    </header>
+    <main>
+      <section id="form">
+        <h2>Grader Signup</h2>
+        <p>Interested in being a grader? Please fill out the form below.</p>
+        <form id="form-grader">
+          <!-- Basic Details -->
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" name="phone" required />
+
+          <label for="experience">Experience (in years):</label>
+          <input
+            type="number"
+            id="experience"
+            name="experience"
+            min="0"
+            required
+          />
+
+          <label for="genres">Preferred Genres:</label>
+          <small
+            >Hold down the Ctrl (Windows) or Command (Mac) button to select
+            multiple options.</small
+          >
+          <select multiple id="genres" name="genres">
+            <option value="action">Action/Adventure</option>
+            <option value="horror">Horror/Scifi</option>
+            <option value="mystery">Mystery/Crime/Thriller</option>
+            <option value="comedy">Comedy</option>
+            <option value="drama">Drama</option>
+            <option value="historical">Historical/Biopic</option>
+          </select>
+
+          <label for="days-to-grade">Estimated Days to Grade a Script:</label>
+          <input
+            type="number"
+            id="days-to-grade"
+            name="days-to-grade"
+            min="1"
+            required
+          />
+
+          <button type="submit" id="submit-btn">Submit</button>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2023 ScriptGraders</p>
+    </footer>
+    <script src="grader_signup.js"></script>
+  </body>
+</html>

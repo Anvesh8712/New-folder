@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Dashboard</title>
+    <link rel="stylesheet" href="grader_dashboard.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to the Client Dashboard!</h1>
+    </header>
+
+    <p><span id="greetings"></span></p>
+    <p>Please select a genre:</p>
+    <select id="genreSelect">
+      <option value="Action">Action</option>
+      <option value="Mystery">Mystery/Crime/Thriller</option>
+      <option value="Historical">Historical/Biopic</option>
+      <option value="Horror">Horror/Scifi</option>
+      <option value="Drama">Drama</option>
+      <option value="Comedy">Comedy</option>
+    </select>
+    <p>Below are the top rated scripts for the genre selected:</p>
+    <div id="scriptList"></div>
+    <footer>
+      <p>&copy; 2023 ScriptGraders</p>
+    </footer>
+    <script src="client_dashboard.js"></script>
+  </body>
+</html>

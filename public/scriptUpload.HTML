@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Script Submission</title>
+    <link rel="stylesheet" href="scriptUpload.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Script Submission</h1>
+    </header>
+    <main>
+      <section id="signup">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+          <label for="first-name">First Name:</label>
+          <input type="text" id="first-name" name="first-name" required />
+
+          <label for="last-name">Last Name:</label>
+          <input type="text" id="last-name" name="last-name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="confirm-email">Confirm Email:</label>
+          <input
+            type="email"
+            id="confirm-email"
+            name="confirm-email"
+            required
+          />
+
+          <label for="phone">Phone:</label>
+          <small>Enter a 10-digit phone number.</small>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            pattern="[0-9]{10}"
+            required
+          />
+
+          <label for="country">Country:</label>
+          <select id="country" name="country" required>
+            <option value="India">India</option>
+            <option value="United States">United States</option>
+          </select>
+
+          <label for="street-address">Street Address:</label>
+          <input
+            type="text"
+            id="street-address"
+            name="street-address"
+            required
+          />
+
+          <label for="address-line2">Address Line 2:</label>
+          <input type="text" id="address-line2" name="address-line2" />
+
+          <label for="city">City:</label>
+          <input type="text" id="city" name="city" required />
+
+          <label for="state">State:</label>
+          <select id="state" name="state" required></select>
+
+          <label for="zip-code">Zip Code:</label>
+          <input type="text" id="zip-code" name="zip-code" required />
+
+          <label for="social-media">Social Media (Optional):</label>
+          <input type="url" id="social-media" name="social-media" />
+          <label for="multiple-scripts">Enter Scripts:</label>
+          <select id="multiple-scripts" name="multiple-scripts">
+            <option value="Single">Single Script</option>
+            <option value="Double">Double Script</option>
+          </select>
+
+          <h2>Script Details</h2>
+
+          <div id="script-container-1" class="script-container">
+            <label for="script-title-1">Script Title:</label>
+            <input
+              type="text"
+              id="script-title-1"
+              name="script-title-1"
+              required
+            />
+
+            <label for="co-writer-1">Co-writer (Optional):</label>
+            <input type="text" id="co-writer-1" name="co-writer-1" />
+
+            <label for="script-type-1">Script Type:</label>
+            <select id="script-type-1" name="script-type-1" required>
+              <option value="Feature">Feature</option>
+              <option value="Pilot">Pilot</option>
+            </select>
+
+            <label for="script-genre-1">Genre:</label>
+            <select id="script-genre-1" name="script-genre-1" required>
+              <option value="Action/Adventure">Action/Adventure</option>
+              <option value="Horror/Scifi">Horror/Scifi</option>
+              <option value="Mystery/Crime/Thriller">
+                Mystery/Crime/Thriller
+              </option>
+              <option value="Comedy">Comedy</option>
+              <option value="Drama">Drama</option>
+              <option value="Historical/Biopic">Historical/Biopic</option>
+            </select>
+
+            <label for="script-file-1">Upload Script (PDF only):</label>
+            <input
+              type="file"
+              id="script-file-1"
+              name="script-file-1"
+              accept=".pdf"
+              required
+            />
+
+            <label for="synopsis-file-1"
+              >Upload Synopsis (PDF only, Optional):</label
+            >
+            <input
+              type="file"
+              id="synopsis-file-1"
+              name="synopsis-file-1"
+              accept=".pdf"
+            />
+          </div>
+
+          <div
+            id="script-container-2"
+            class="script-container"
+            style="display: none"
+          >
+            <br /><br />
+            <label for="script-title-2">Script 2 Title:</label>
+            <input
+              type="text"
+              id="script-title-2"
+              name="script-title-2"
+              required
+            />
+
+            <label for="co-writer-2">Co-writer (Optional):</label>
+            <input type="text" id="co-writer-2" name="co-writer-2" />
+
+            <label for="script-type-2">Script Type:</label>
+            <select id="script-type-2" name="script-type-2" required>
+              <option value="Feature">Feature</option>
+              <option value="Pilot">Pilot</option>
+            </select>
+
+            <label for="script-genre-2">Genre:</label>
+            <select id="script-genre-2" name="script-genre-2" required>
+              <option value="Action/Adventure">Action/Adventure</option>
+              <option value="Horror/Scifi">Horror/Scifi</option>
+              <option value="Mystery/Crime/Thriller">
+                Mystery/Crime/Thriller
+              </option>
+              <option value="Comedy">Comedy</option>
+              <option value="Drama">Drama</option>
+              <option value="Historical/Biopic">Historical/Biopic</option>
+            </select>
+
+            <label for="script-file-2">Upload Script (PDF only):</label>
+            <input
+              type="file"
+              id="script-file-2"
+              name="script-file-2"
+              accept=".pdf"
+              required
+            />
+
+            <label for="synopsis-file-2"
+              >Upload Synopsis (PDF only, Optional):</label
+            >
+            <input
+              type="file"
+              id="synopsis-file-2"
+              name="synopsis-file-2"
+              accept=".pdf"
+            />
+          </div>
+
+          <label for="how-heard">How Did You Hear About Us:</label>
+          <input type="text" id="how-heard" name="how-heard" required />
+
+          <label for="terms">Terms and Conditions:</label>
+          <input type="checkbox" id="terms" name="terms" required />I
+          understand.
+
+          <br /><br />
+          <button type="button" id="submit-btn">Sign Up</button>
+        </form>
+      </section>
+
+      <!-- ... Rest of the sections ... -->
+    </main>
+    <footer>
+      <p>&copy; 2023 ScriptGraders</p>
+    </footer>
+    <script src="scriptUpload.js"></script>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grader Login</title>
+    <link rel="stylesheet" href="grader_login.css" />
+  </head>
+  <body>
+    <header>
+      <a href="homepage.html">
+        <div class="logo">
+          <img
+            alt="ScriptGraders Logo"
+            src="/resources/Script-Graders-transparent.png"
+            width="100"
+          />
+        </div>
+      </a>
+      <div class="nav">
+        <a class="btn" href="scriptUpload.html">Submit Your Script</a>
+        <a class="btn" href="grader_login.html">Grader</a>
+        <a class="btn" href="how_works.html">How It works</a>
+        <a class="btn" href="grader_login.html">Clients</a>
+        <a class="btn" href="grader_login.html">Login/SignIn</a>
+      </div>
+    </header>
+    <main>
+      <section>
+        <form id="grader-login-form">
+          <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+
+          <div class="input-group">
+            <legend>User Type:</legend>
+            <div>
+              <input
+                type="radio"
+                id="grader"
+                name="userType"
+                value="grader"
+                required
+              />
+              <label for="grader">Grader</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="script-writer"
+                name="userType"
+                value="script-writer"
+                required
+              />
+              <label for="script-writer">Script Writer</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="client"
+                name="userType"
+                value="client"
+                required
+              />
+              <label for="client">Client</label>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="submit" id="login-btn">Login</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2023 ScriptGraders</p>
+    </footer>
+    <script src="grader_login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Client Signup</title>
+    <link href="grader_signup.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <h1>Client Signup</h1>
+    </header>
+    <main>
+      <section id="form">
+        <h2>Client Signup</h2>
+        <p>Interested in being a client? Please fill out the form below.</p>
+        <form id="form-grader">
+          <!-- Basic Details -->
+          <label for="name">Name:</label>
+          <input id="name" name="name" required="" type="text" /><label
+            for="contact-person"
+            >Contact Person:</label
+          >
+          <input
+            id="contact-person"
+            name="contact-person"
+            required="True"
+            type="text"
+          />
+
+          <label for="email">Email:</label>
+          <input id="email" name="email" required="" type="email" />
+          <label for="password">Password:</label>
+          <input id="password" name="password" required="" type="password" />
+          <label for="phone">Phone:</label>
+          <input id="phone" name="phone" required="" type="tel" />
+
+          <label for="country">Country:</label>
+          <select id="country" name="country" required>
+            <option value="India">India</option>
+            <option value="United States">United States</option>
+          </select>
+
+          <label for="street-address">Street Address:</label>
+          <input
+            type="text"
+            id="street-address"
+            name="street-address"
+            required
+          />
+
+          <label for="address-line2">Address Line 2:</label>
+          <input type="text" id="address-line2" name="address-line2" />
+
+          <label for="city">City:</label>
+          <input type="text" id="city" name="city" required />
+
+          <label for="state">State:</label>
+          <select id="state" name="state" required></select>
+
+          <label for="zip-code">Zip Code:</label>
+          <input type="text" id="zip-code" name="zip-code" required />
+
+          <button id="submit-btn" type="submit">Submit</button>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>© 2023 ScriptGraders</p>
+    </footer>
+    <script src="client_signup.js"></script>
+  </body>
+</html>

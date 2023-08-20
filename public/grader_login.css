@@ -1,0 +1,113 @@
+
+/* Resetting some default styles */
+body, h1, h2, h3, p, ul, li, a {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+}
+
+.logo img {
+    max-width: 100px;
+}
+
+.nav {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    color: white;
+    background-color: #555;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #777;
+}
+
+/* Main content and form styles */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);  /* 80px is roughly the header and footer combined height */
+}
+
+form#grader-login-form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group, .button-group {
+    margin-bottom: 15px;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.button-group button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button#login-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button#signup-btn, button#submit-scripts-btn {
+    background-color: #555;
+    color: white;
+}
+
+.button-group button:hover {
+    background-color: #777;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Radio button styles */
+.input-group input[type="radio"] {
+    margin-right: 5px;
+    display: inline-block;
+}
+.input-group label {
+    margin-left: 5px;
+}
+
+form#grader-login-form {
+    margin: 0 auto; /* Ensures horizontal centering */
+}
