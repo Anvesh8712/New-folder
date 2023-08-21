@@ -86,7 +86,7 @@ submitButton.addEventListener("click", async (event) => {
 
   // Sending form data (including files) to the server
   try {
-    const response = await fetch("/submit", {
+    const response = await fetch("/writerSignup", {
       method: "POST",
       body: formData, // No need to set the Content-Type header, fetch does it automatically for FormData
     });
