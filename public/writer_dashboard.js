@@ -38,6 +38,19 @@ let populateDropdown = async () => {
         genre.textContent = "Genre: " + script.genre; // Assuming script has a genre property
         card.appendChild(genre);
 
+        if (script.num_graders == 0) {
+          const rating = document.createElement("div");
+          rating.className = "pdf-card-author";
+          rating.textContent = "Still being graded!"; // Assuming script has a genre property
+          card.appendChild(rating);
+        } else {
+          const rating = document.createElement("div");
+          rating.className = "pdf-card-author";
+          rating.textContent =
+            "Rating: " + script.total_score / script.num_graders; // Assuming script has a genre property
+          card.appendChild(rating);
+        }
+
         scriptList.appendChild(card);
       });
     })
