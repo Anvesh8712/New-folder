@@ -129,7 +129,7 @@ submitButton.addEventListener("click", async (event) => {
       }, // No need to set the Content-Type header, fetch does it automatically for FormData
     });
 
-    if (response.ok) {
+    if (response.status == 201) {
       const jsonResponse = await response.json();
       user_id = jsonResponse.userId; // Update the user_id with the value from the server response
       console.log("User ID updated:", user_id);
@@ -160,11 +160,11 @@ submitButton.addEventListener("click", async (event) => {
       // Handle successful upload, perhaps update the UI or navigate to another page
     } else {
       const errorData = await response.json();
-      console.error("Error uploading file:", errorData);
+      console.log("Error uploading file:", errorData);
       // Handle error, perhaps show a message to the user
     }
   } catch (error) {
-    return console.error("Network error:", error);
+    return console.log("Network error:", error);
     // Handle network errors, perhaps show a message to the user
   }
 
@@ -189,11 +189,11 @@ submitButton.addEventListener("click", async (event) => {
         // Handle successful upload, perhaps update the UI or navigate to another page
       } else {
         const errorData = await response.json();
-        return console.error("Error uploading file:", errorData);
+        return console.log("Error uploading file:", errorData);
         // Handle error, perhaps show a message to the user
       }
     } catch (error) {
-      return console.error("Network error:", error);
+      return console.log("Network error:", error);
       // Handle network errors, perhaps show a message to the user
     }
   }
@@ -227,6 +227,9 @@ submitButton.addEventListener("click", async (event) => {
     if (response.ok) {
       user_id = data.userId; // Update the user_id with the value from the server response
       console.log("User ID updated:", user_id);
+      if (multipleScriptsSelect.value === "Single") {
+        window.location.href = response.url;
+      }
     } else {
       return response.text().then((text) => alert("Error: " + text));
     }
@@ -323,12 +326,15 @@ submitButton.addEventListener("click", async (event) => {
       if (response.ok) {
         user_id = data.userId; // Update the user_id with the value from the server response
         console.log("User ID updated:", user_id);
+        window.location.href = response.url;
       } else {
         return response.text().then((text) => alert("Error: " + text));
       }
     } catch (error) {
       return console.error("Error:", error);
     }
+
+    window.location.href = "/grader_login.html";
   }
   // Sending form data (including files) to the server
 });
