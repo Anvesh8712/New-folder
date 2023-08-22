@@ -1,9 +1,12 @@
+let user_id = 0;
+
 let populateDropdown = async () => {
   fetch("/getWriterDetails")
     .then((response) => response.json())
     .then((data) => {
       console.log("trying to populate");
       console.log("getUserScripts?id=" + data.user_id);
+      user_id = data.user_id;
       document.getElementById("greetings").textContent =
         "Hi " + data.first_name;
       return fetch("getUserScripts?id=" + data.user_id);
@@ -92,3 +95,101 @@ let populateDropdown = async () => {
 };
 
 populateDropdown();
+
+const submitButton = document.getElementById("submit-btn");
+
+submitButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+
+  const fileInput1 = document.getElementById("script-file-1");
+  const file1 = fileInput1.files[0]; // Extract the first selected file
+  let file_1_location = "";
+  try {
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: file1,
+      headers: {
+        "x-filename": file1.name, // Send the filename in a header
+      },
+    });
+
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      console.log(jsonResponse);
+      file_1_location = jsonResponse.data.Location;
+      // Handle successful upload, perhaps update the UI or navigate to another page
+    } else {
+      const errorData = await response.json();
+      console.log("Error uploading file:", errorData);
+      // Handle error, perhaps show a message to the user
+    }
+  } catch (error) {
+    return console.log("Network error:", error);
+    // Handle network errors, perhaps show a message to the user
+  }
+
+  const fileSynopsis1 = document.getElementById("synopsis-file-1");
+  const synopsis1 = fileSynopsis1.files[0]; // Extract the first selected file
+  let synopsis1Location = "";
+  if (synopsis1) {
+    // A file was submitted
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: synopsis1,
+        headers: {
+          "x-filename": synopsis1.name, // Send the filename in a header
+        },
+      });
+
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+        synopsis1Location = jsonResponse.data.Location;
+        // Handle successful upload, perhaps update the UI or navigate to another page
+      } else {
+        const errorData = await response.json();
+        return console.log("Error uploading file:", errorData);
+        // Handle error, perhaps show a message to the user
+      }
+    } catch (error) {
+      return console.log("Network error:", error);
+      // Handle network errors, perhaps show a message to the user
+    }
+  }
+
+  const script_title = document.getElementById("script-title-1").value;
+  const co_writer = document.getElementById("co-writer-1").value;
+  const script_type = document.getElementById("script-type-1").value;
+  const genre = document.getElementById("script-genre-1").value;
+  const script_file_path = file_1_location;
+  const synopsis_file_path = synopsis1Location;
+
+  scriptObj = {
+    script_title,
+    co_writer,
+    script_type,
+    genre,
+    script_file_path,
+    synopsis_file_path,
+    user_id,
+  };
+
+  try {
+    const response = await fetch("/scriptUpload", {
+      method: "POST",
+      body: JSON.stringify(scriptObj),
+      headers: {
+        "Content-Type": "application/json",
+      }, // No need to set the Content-Type header, fetch does it automatically for FormData
+    });
+
+    if (response.ok) {
+      console.log("User ID updated:", user_id);
+    } else {
+      return response.text().then((text) => alert("Error: " + text));
+    }
+  } catch (error) {
+    return console.error("Error:", error);
+  }
+});

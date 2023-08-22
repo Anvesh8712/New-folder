@@ -12,7 +12,7 @@
     </header>
 
     <p><span id="greetings"></span></p>
-    <p>Below are your scripts</p>
+    <h2>Below are your scripts</h2>
     <div id="scriptList"></div>
     <table id="scriptsRatingTable" class="table table-striped">
       <thead>
@@ -35,6 +35,50 @@
         <!-- Rows will be populated here using JS -->
       </tbody>
     </table>
+    <h2>Upload more scripts below:</h2>
+    <div id="script-container-1" class="script-container">
+      <label for="script-title-1">Script Title:</label>
+      <input type="text" id="script-title-1" name="script-title-1" required />
+
+      <label for="co-writer-1">Co-writer (Optional):</label>
+      <input type="text" id="co-writer-1" name="co-writer-1" />
+
+      <label for="script-type-1">Script Type:</label>
+      <select id="script-type-1" name="script-type-1" required>
+        <option value="Feature">Feature</option>
+        <option value="Pilot">Pilot</option>
+      </select>
+
+      <label for="script-genre-1">Genre:</label>
+      <select id="script-genre-1" name="script-genre-1" required>
+        <option value="Action">Action/Adventure</option>
+        <option value="Horror">Horror/Scifi</option>
+        <option value="Mystery">Mystery/Crime/Thriller</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Drama">Drama</option>
+        <option value="Historical">Historical/Biopic</option>
+      </select>
+
+      <label for="script-file-1"
+        >Upload Script (.pdf, .mp3, .wav, .ogg, .mp4, .avi, .mov only):</label
+      >
+      <input
+        type="file"
+        id="script-file-1"
+        name="script-file-1"
+        accept=".pdf, .mp3, .wav, .ogg, .mp4, .avi, .mov"
+        required
+      />
+
+      <label for="synopsis-file-1">Upload Synopsis (PDF only, Optional):</label>
+      <input
+        type="file"
+        id="synopsis-file-1"
+        name="synopsis-file-1"
+        accept=".pdf"
+      />
+      <button type="button" id="submit-btn">Submit Script</button>
+    </div>
     <footer>
       <p>&copy; 2023 ScriptGraders</p>
     </footer>

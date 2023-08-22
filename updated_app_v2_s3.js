@@ -134,11 +134,11 @@ app.post("/writerSignup", async (req, res) => {
       message: "New User Created",
       userId: parseInt(newUser["user_id"]),
     });
-
-    //return res.redirect("/grader_login.html");
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).json({ error: error.detail });
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the user." });
   }
 });
 
@@ -171,6 +171,8 @@ app.post("/scriptUpload", async (req, res) => {
       synopsis_file_path,
     ]
   );
+
+  return res.redirect("/grader_login.html");
 });
 
 // Grader Signup route
