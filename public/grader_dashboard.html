@@ -16,8 +16,8 @@
     <div id="ratingForm">
       <select id="scriptDropdown">
         <option value="">Select a script...</option></select
-      ><label>Storyline: </label
-      ><select id="storylineRating">
+      ><label>Concept: </label
+      ><select id="conceptRating">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -28,8 +28,20 @@
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option></select
-      ><br /><label>Character Development: </label
-      ><select id="characterdevelopmentRating">
+      ><br /><label>Plot: </label
+      ><select id="plotRating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option></select
+      ><br /><label>Characters: </label
+      ><select id="charactersRating">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -52,6 +64,66 @@
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option></select
+      ><br /><label>Emotional Impact: </label
+      ><select id="emotionalImpactRating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option></select
+      ><br /><label>Conflict: </label
+      ><select id="conflictRating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option></select
+      ><br /><label>High Stakes: </label
+      ><select id="highStakesRating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option></select
+      ><br /><label>Move Story Forward: </label
+      ><select id="moveStoryForwardRating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option></select
+      ><br /><label>Character Changes: </label
+      ><select id="characterChangesRating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option></select
       ><br /><label>Overall Score: </label
       ><select id="overallscoreRating">
         <option value="1">1</option>
@@ -64,7 +136,14 @@
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option></select
-      ><br /><button id="submitRating" type="button">Submit Rating</button>
+      ><br /><label for="name">Comments:</label>
+      <textarea
+        name="comments"
+        required
+        id="comments"
+        maxlength="500"
+      ></textarea
+      ><button id="submitRating" type="button">Submit Rating</button>
     </div>
     <footer>
       <p>&copy; 2023 ScriptGraders</p>

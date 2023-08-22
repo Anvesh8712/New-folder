@@ -52,6 +52,38 @@ let populateDropdown = async () => {
         }
 
         scriptList.appendChild(card);
+
+        fetch("/getScriptRating?script_id=" + script.script_id)
+          .then((response) => response.json())
+          .then((ratings) => {
+            const tableBody = document
+              .getElementById("scriptsRatingTable")
+              .getElementsByTagName("tbody")[0];
+
+            // Clear any existing rows
+
+            // Add each rating as a new row in the table
+
+            const newRow = tableBody.insertRow();
+
+            // Insert cells and set their text content
+            newRow.insertCell(0).textContent = script.script_title;
+            //newRow.insertCell(1).textContent = ratings.num_graders;
+            newRow.insertCell(1).textContent = ratings.overall;
+            newRow.insertCell(2).textContent = ratings.concept;
+            newRow.insertCell(3).textContent = ratings.plot;
+            newRow.insertCell(4).textContent = ratings.characters;
+            newRow.insertCell(5).textContent = ratings.dialogue;
+            newRow.insertCell(6).textContent = ratings.emotional_impact;
+            newRow.insertCell(7).textContent = ratings.conflict;
+            newRow.insertCell(8).textContent = ratings.high_stakes;
+            newRow.insertCell(9).textContent = ratings.move_story_forward;
+            newRow.insertCell(10).textContent = ratings.character_changes;
+            newRow.insertCell(11).textContent = ratings.comments;
+          })
+          .catch((error) => {
+            console.error("Error fetching ratings:", error);
+          });
       });
     })
     .catch((error) => {
