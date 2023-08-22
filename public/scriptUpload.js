@@ -134,10 +134,10 @@ submitButton.addEventListener("click", async (event) => {
       user_id = jsonResponse.userId; // Update the user_id with the value from the server response
       console.log("User ID updated:", user_id);
     } else {
-      response.text().then((text) => alert("Error: " + text));
+      return response.text().then((text) => alert("Error: " + text));
     }
   } catch (error) {
-    console.error("Error:", error);
+    return console.error("Error:", error);
   }
 
   //script 1 submission -> to scripts and upload to aws and get the location
@@ -164,7 +164,7 @@ submitButton.addEventListener("click", async (event) => {
       // Handle error, perhaps show a message to the user
     }
   } catch (error) {
-    console.error("Network error:", error);
+    return console.error("Network error:", error);
     // Handle network errors, perhaps show a message to the user
   }
 
@@ -189,11 +189,11 @@ submitButton.addEventListener("click", async (event) => {
         // Handle successful upload, perhaps update the UI or navigate to another page
       } else {
         const errorData = await response.json();
-        console.error("Error uploading file:", errorData);
+        return console.error("Error uploading file:", errorData);
         // Handle error, perhaps show a message to the user
       }
     } catch (error) {
-      console.error("Network error:", error);
+      return console.error("Network error:", error);
       // Handle network errors, perhaps show a message to the user
     }
   }
@@ -228,10 +228,10 @@ submitButton.addEventListener("click", async (event) => {
       user_id = data.userId; // Update the user_id with the value from the server response
       console.log("User ID updated:", user_id);
     } else {
-      response.text().then((text) => alert("Error: " + text));
+      return response.text().then((text) => alert("Error: " + text));
     }
   } catch (error) {
-    console.error("Error:", error);
+    return console.error("Error:", error);
   }
 
   //script 2 submission -> to scripts and upload to aws and get the location
@@ -256,11 +256,11 @@ submitButton.addEventListener("click", async (event) => {
         // Handle successful upload, perhaps update the UI or navigate to another page
       } else {
         const errorData = await response.json();
-        console.error("Error uploading file:", errorData);
+        return console.error("Error uploading file:", errorData);
         // Handle error, perhaps show a message to the user
       }
     } catch (error) {
-      console.error("Network error:", error);
+      return console.error("Network error:", error);
       // Handle network errors, perhaps show a message to the user
     }
 
@@ -285,11 +285,11 @@ submitButton.addEventListener("click", async (event) => {
           // Handle successful upload, perhaps update the UI or navigate to another page
         } else {
           const errorData = await response.json();
-          console.error("Error uploading file:", errorData);
+          return console.error("Error uploading file:", errorData);
           // Handle error, perhaps show a message to the user
         }
       } catch (error) {
-        console.error("Network error:", error);
+        return console.error("Network error:", error);
         // Handle network errors, perhaps show a message to the user
       }
     }
@@ -324,10 +324,10 @@ submitButton.addEventListener("click", async (event) => {
         user_id = data.userId; // Update the user_id with the value from the server response
         console.log("User ID updated:", user_id);
       } else {
-        response.text().then((text) => alert("Error: " + text));
+        return response.text().then((text) => alert("Error: " + text));
       }
     } catch (error) {
-      console.error("Error:", error);
+      return console.error("Error:", error);
     }
   }
   // Sending form data (including files) to the server
