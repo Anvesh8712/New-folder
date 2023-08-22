@@ -38,20 +38,6 @@ fetch("/getGraderDetails")
     const scriptList = document.getElementById("scriptList");
     console.log("scripts: ", scripts);
     scripts.forEach((script, index) => {
-      // Display the script address
-      //   const listItem = document.createElement("li");
-      //   listItem.textContent = script.script_file_path;
-      //   scriptList.appendChild(listItem);
-      //   const iframe = document.createElement("iframe");
-      //   iframe.src = script.script_file_path;
-      //   console.log("path: ", script.script_file_path);
-      //   iframe.width = "100%";
-      //   iframe.height = "400px"; // Set appropriate height or make it dynamic based on content
-      //   scriptList.appendChild(iframe);
-
-      //   // Add a space between iframes
-      //   scriptList.appendChild(document.createElement("br"));
-
       const card = document.createElement("div");
       card.className = "pdf-card";
       card.onclick = () => window.open(script.script_file_path, "_blank");
@@ -74,21 +60,6 @@ fetch("/getGraderDetails")
 
       scriptList.appendChild(card);
 
-      //Add rating field for the script in the form
-      //   const ratingForm = document.getElementById("ratingForm");
-      //   const label = document.createElement("label");
-      //   label.textContent = "Rate script " + (index + 1) + ": ";
-      //   const input = document.createElement("input");
-      //   input.type = "number";
-      //   input.min = "1";
-      //   input.max = "5";
-      //   input.name = "rating" + (index + 1);
-      //   ratingForm.insertBefore(label, ratingForm.lastChild);
-      //   ratingForm.insertBefore(input, ratingForm.lastChild);
-      //   ratingForm.insertBefore(
-      //     document.createElement("br"),
-      //     ratingForm.lastChild
-      //   );
       const scriptDropdown = document.getElementById("scriptDropdown");
       const option = document.createElement("option");
       option.value = script.script_id; // Assuming the script object has an id
@@ -109,48 +80,47 @@ document
       return;
     }
 
-    const storylineRating = document.getElementById("storylineRating").value;
-    const characterDevelopmentRating = document.getElementById(
-      "characterdevelopmentRating"
-    ).value;
+    const conceptRating = document.getElementById("conceptRating").value;
+    const plotRating = document.getElementById("plotRating").value;
+    const charactersRating = document.getElementById("charactersRating").value;
     const dialogueRating = document.getElementById("dialogueRating").value;
+    const emotionalImpactRating = document.getElementById(
+      "emotionalImpactRating"
+    ).value;
+    const conflictRating = document.getElementById("conflictRating").value;
+    const highStakesRating = document.getElementById("highStakesRating").value;
+    const moveStoryForwardRating = document.getElementById(
+      "moveStoryForwardRating"
+    ).value;
+    const characterChangesRating = document.getElementById(
+      "characterChangesRating"
+    ).value;
     const overallScoreRating =
       document.getElementById("overallscoreRating").value;
+    const comments = document.getElementById("comments").value;
 
-    console.log({
-      script: selectedScript,
-      ratings: {
-        storyline: storylineRating,
-        characterDevelopment: characterDevelopmentRating,
-        dialogue: dialogueRating,
-        overallScore: overallScoreRating,
-      },
-    });
-    let averageRating =
-      (Number(storylineRating) +
-        Number(characterDevelopmentRating) +
-        Number(dialogueRating) +
-        Number(overallScoreRating)) /
-      4;
-
-    console.log(
-      storylineRating,
-      characterDevelopmentRating,
-      dialogueRating,
-      overallScoreRating,
-      averageRating
-    );
-    let obj = {
-      averageRating,
+    // Create the object containing individual ratings
+    const ratingsObject = {
+      concept: conceptRating,
+      plot: plotRating,
+      characters: charactersRating,
+      dialogue: dialogueRating,
+      emotionalImpact: emotionalImpactRating,
+      conflict: conflictRating,
+      highStakes: highStakesRating,
+      moveStoryForward: moveStoryForwardRating,
+      characterChanges: characterChangesRating,
+      overallScore: overallScoreRating,
       script_id: selectedScript,
+      comments: comments,
     };
 
-    console.log("obj: ", obj);
+    console.log(ratingsObject);
 
     try {
       const response = await fetch("/submitRating", {
         method: "POST",
-        body: JSON.stringify(obj),
+        body: JSON.stringify(ratingsObject),
         headers: {
           "Content-Type": "application/json",
         },

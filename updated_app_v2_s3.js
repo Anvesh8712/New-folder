@@ -479,27 +479,161 @@ app.get("/getRecommendedScripts", isAuthenticatedGrader, async (req, res) => {
   }
 });
 
+app.get("/getScriptRating", isAuthenticatedWriter, async (req, res) => {
+  try {
+    const script_id = req.query.script_id; // Assuming grader's email is passed as a query parameter
+    console.log("made it to recommended", script_id);
+    // Fetch the grader's preferred genres from the database
+
+    // Fetch scripts that match the preferred genres
+    const scripts = await db.oneOrNone(
+      "SELECT * FROM script_ratings WHERE script_id = $1 LIMIT 10",
+      [script_id]
+    );
+
+    if (!scripts) {
+      return res.json({
+        script_id: script_id,
+        num_graders: "not graded",
+        overall: "not graded",
+        concept: "not graded",
+        plot: "not graded",
+        characters: "not graded",
+        dialogue: "not graded",
+        emotional_impact: "not graded",
+        conflict: "not graded",
+        high_stakes: "not graded",
+        move_story_forward: "not graded",
+        character_changes: "not graded",
+        comments: "not graded",
+      });
+    }
+
+    console.log("lmao: ");
+    console.log(scripts);
+    res.json(scripts);
+  } catch (error) {
+    console.error("Error fetching recommended scripts:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // Endpoint to handle rating submissions
 app.post("/submitRating", async (req, res) => {
   try {
     console.log("Extracted grader form data:", req.body);
-    const { script_id, averageRating } = req.body;
-
-    // Fetch the current total_score and num_grader values for the specified script
-    const script = await db.one(
-      "SELECT total_score, num_graders FROM scripts WHERE script_id = $1",
+    let {
+      script_id,
+      concept,
+      plot,
+      characters,
+      dialogue,
+      emotionalImpact,
+      conflict,
+      highStakes,
+      moveStoryForward,
+      characterChanges,
+      overallScore,
+      comments,
+    } = req.body;
+    comments = " " + comments;
+    console.log(comments);
+    const existingRow = await db.oneOrNone(
+      "SELECT * FROM script_ratings WHERE script_id = $1",
       [script_id]
     );
 
-    // Calculate the new total score and increment num_grader
-    const newTotalScore = script.total_score + averageRating;
-    const newNumGrader = script.num_graders + 1;
+    if (existingRow) {
+      db.none(
+        `
+  UPDATE script_ratings
+  SET
+      num_graders = num_graders + 1,
+      overall = overall + $1,
+      concept = concept + $2,
+      plot = plot + $3,
+      characters = characters + $4,
+      dialogue = dialogue + $5,
+      emotional_impact = emotional_impact + $6,
+      conflict = conflict + $7,
+      high_stakes = high_stakes + $8,
+      move_story_forward = move_story_forward + $9,
+      character_changes = character_changes + $10,
+      comments = CONCAT(comments, $11::VARCHAR(5000))
 
-    // Update the script table with the new values
-    await db.none(
-      "UPDATE scripts SET total_score = $1, num_graders = $2 WHERE script_id = $3",
-      [newTotalScore, newNumGrader, script_id]
-    );
+  WHERE script_id = $12;
+`,
+        [
+          overallScore,
+          concept,
+          plot,
+          characters,
+          dialogue,
+          emotionalImpact,
+          conflict,
+          highStakes,
+          moveStoryForward,
+          characterChanges,
+          comments,
+          script_id,
+        ]
+      )
+        .then(() => {
+          console.log("Comment inserted successfully.");
+        })
+        .catch((error) => {
+          console.error("Error inserting comment:", error);
+        });
+    } else {
+      await db.none(
+        `
+      INSERT INTO script_ratings (
+        script_id,
+        num_graders,
+        overall,
+        concept,
+        plot,
+        characters,
+        dialogue,
+        emotional_impact,
+        conflict,
+        high_stakes,
+        move_story_forward,
+        character_changes,
+        comments
+      )
+      VALUES (
+        $11,
+        1,
+        $1,
+        $2,
+        $3,
+        $4,
+        $5,
+        $6,
+        $7,
+        $8,
+        $9,
+        $10,
+        $12
+      );
+    `,
+        [
+          overallScore,
+          concept,
+          plot,
+          characters,
+          dialogue,
+          emotionalImpact,
+          conflict,
+          highStakes,
+          moveStoryForward,
+          characterChanges,
+          script_id,
+          comments,
+        ]
+      );
+    }
 
     res.status(200).send({ message: "Rating updated successfully!" });
   } catch (error) {
