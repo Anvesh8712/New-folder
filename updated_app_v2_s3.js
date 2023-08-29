@@ -136,43 +136,48 @@ app.post("/writerSignup", async (req, res) => {
     });
   } catch (error) {
     console.error("Error:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while creating the user." });
+    res.status(500).json({ error: error.detail });
   }
 });
 
 //scripts upload
 app.post("/scriptUpload", async (req, res) => {
-  const {
-    script_title,
-    co_writer,
-    script_type,
-    genre,
-    script_file_path,
-    synopsis_file_path,
-    user_id,
-  } = req.body;
-
-  await db.none(
-    `
-        INSERT INTO scripts (
-            user_id, script_title, co_writer, script_type, genre, script_file_path, synopsis_file_path
-        )
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
-      `,
-    [
-      user_id,
+  try {
+    const {
       script_title,
       co_writer,
       script_type,
       genre,
       script_file_path,
       synopsis_file_path,
-    ]
-  );
+      user_id,
+    } = req.body;
 
-  return res.redirect("/grader_login.html");
+    await db.none(
+      `
+          INSERT INTO scripts (
+              user_id, script_title, co_writer, script_type, genre, script_file_path, synopsis_file_path
+          )
+          VALUES ($1, $2, $3, $4, $5, $6, $7)
+        `,
+      [
+        user_id,
+        script_title,
+        co_writer,
+        script_type,
+        genre,
+        script_file_path,
+        synopsis_file_path,
+      ]
+    );
+
+    return res.redirect("/grader_login.html");
+  } catch (error) {
+    console.error("Error uploading script:", error);
+    res
+      .status(500)
+      .send("There was an error uploading the script. Please try again later.");
+  }
 });
 
 // Grader Signup route
