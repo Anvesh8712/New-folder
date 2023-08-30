@@ -225,8 +225,8 @@ submitButton.addEventListener("click", async (event) => {
     });
 
     if (response.ok) {
-      user_id = data.userId; // Update the user_id with the value from the server response
-      console.log("User ID updated:", user_id);
+      //user_id = data.userId; // Update the user_id with the value from the server response
+      //console.log("User ID updated:", user_id);
       if (multipleScriptsSelect.value === "Single") {
         window.location.href = response.url;
       }
@@ -267,8 +267,6 @@ submitButton.addEventListener("click", async (event) => {
       // Handle network errors, perhaps show a message to the user
     }
 
-    const fileSynopsis2 = document.getElementById("synopsis-file-2");
-    const synopsis2 = fileSynopsis2.files[0]; // Extract the first selected file
     let synopsis2Location = "";
     if (synopsis2) {
       // A file was submitted
